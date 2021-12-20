@@ -2,10 +2,16 @@ package com.example.kommunevalg.rest;
 
 
 import com.example.kommunevalg.entity.Candidate;
+import com.example.kommunevalg.entity.Party;
 import com.example.kommunevalg.errors.NotFoundException;
 import com.example.kommunevalg.repository.CandidateRepository;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController  // Spring anotation - markerer klassen som en request handler
 @RequestMapping("api/candidates")
@@ -42,6 +48,8 @@ Candidate addOne(@RequestBody Candidate candidate) {return candidateRepository.s
     void deleteOne(@PathVariable("id")int id) {
         candidateRepository.deleteById(id);}
 
-
-
+//@GetMapping
+//Iterable<Candidate> findByPartyId() {return candidateRepository.findAll(Sort.by(Sort.Direction.ASC, "party_id"))
 }
+
+

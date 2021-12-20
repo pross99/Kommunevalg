@@ -16,20 +16,67 @@
 <p><a href="deleteOne.html">Delete one</a></p>
 <p><a href="result.html">voting results 2021</a></p>
 <img id="logo" src="../images/guldborgsund.png" alt="Frontpage logo">
+<table>
+    <tr>
+        <td> 1 </td>
+        <td> A - Socialdemokratiet</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td> B - Radikale venstre </td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>C - Det konservative folkeparti</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>D - Nye borgerlige</td>
+    </tr>
 
-<table class="table">
+    <tr>
+        <td>5</td>
+        <td>F - Socialistisk Folkeparti /SF</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>K - Kristendemokraterne</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>L - Guldborgsundlisten</td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>O - Dansk folkeparti</td>
+    </tr>
+    <tr>
+        <td>10  </td>
+        <td> V - Venstre</td>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td>Ø - Enhedlisten</td>
+    </tr>
+    <tr>
+        <td>12</td>
+        <td>Å - Alternativet</td>
+    </tr>
+</table>
+
+<table id="myTable" class="table">
     <thead>
     <tr>
         <th>Id</th>
-        <th>Candidate's First Name</th>
+        <th onclick="sortTable(1)">Candidate's First Name</th>
         <th>Candidate's Last Name</th>
-        <th>Party // electoral alliance</th>
+        <th  onclick="sortTable(0)">Party // electoral alliance</th>
     </tr>
     </thead>
     <tbody id="tbody"></tbody>
 </table>
 
-<input type="number" id="party-filter">
+<input type=text id="party-filter">
 
 <button id="btn-filter-party" class="btn btn-primary">Party Letter</button>
 <button id="btn-filter-clear" class="btn btn-info">Clear filter</button>
@@ -61,15 +108,67 @@
 
 
     }
-    function sortParty(){
-    const sorted = data.getAll().sort
-    makeRows(sorted) }
+//     function sortParty(data){
+//         const userInput = new Text(document.getElementById("party-filter").value)
+//     const sorted = data.getAll().filter(c => c.party.party == userInput)
+//     makeRows(sorted) }
+//
+// function setUpHandlers(){
+//         document.getElementById("btn-filter-party").onclick=sortParty()
+// }
+// setUpHandlers()
 
-function setUpHandlers(){
-        document.getElementById("btn-filter-party").onclick=sortParty()
-}
-setUpHandlers()
-
+function sortTable(n) {
+        let table, rows,switching,i,x,y,shouldSwitch,dir,switchcount = 0;
+        table = document.getElementById("myTable");
+        switching=true;
+        // Sæt sorting til ascending:
+    dir = "asc"
+    // Et loop som kører indtil switching stopper med swappe
+    while(switching) {
+        // starter med at sige ingen switching har fundet sted
+        switching = false;
+        rows = table.rows;
+        /*Loop through all table rows (except the
+        first, which contains table headers) looper gennem alle table rows - undtagen den første:*/
+        for (i = 1; i < (rows.length - 1); i++) {
+            //start by saying there should be no switching:
+            shouldSwitch = false;
+            /* Henter de 2 elementer som man sammenligner - en fra det nuværende row og og en fra det næste:*/
+            x = rows[i].getElementsByTagName("TD")[n];
+            y = rows[i + 1].getElementsByTagName("TD")[n];
+            /* Checker om de 2 rows skal bytte plads basteret på ascending og desc:*/
+            if (dir == "asc") {
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    //if so, mark as a switch and break the loop:
+                    shouldSwitch= true;
+                    break;
+                }
+            } else if (dir == "desc") {
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                    //if so, mark as a switch and break the loop:
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+        }
+        if (shouldSwitch) {
+            /*If a switch has been marked, make the switch
+            and mark that a switch has been done:*/
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            //Each time a switch is done, increase this count by 1:
+            switchcount ++;
+        } else {
+            /*If no switching has been done AND the direction is "asc",
+            set the direction to "desc" and run the while loop again.*/
+            if (switchcount == 0 && dir == "asc") {
+                dir = "desc";
+                switching = true;
+            }
+        }
+    }
+    }
 
 
 

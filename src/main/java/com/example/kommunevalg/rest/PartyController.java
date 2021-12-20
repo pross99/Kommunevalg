@@ -26,7 +26,10 @@ public class PartyController {
     @GetMapping
     Iterable<Party> getAll() {return partyRepository.findAll();}
 
-
+    @GetMapping("parties/{id}")
+    Party getOne(@PathVariable("id") int id) {
+        return partyRepository.findById(id).orElseThrow(() -> new NotFoundException("Party not found"));
+    }
 
 
 
