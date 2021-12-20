@@ -4,19 +4,19 @@ package com.example.kommunevalg.entity;
 import javax.persistence.*;
 
 
-@Entity
+@Entity // Entity repræsenterer data der kan overføres til database.
 public class Candidate {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Denne anotation specificere en værdi som bliver automatisk generated
     int id;
 
     String firstName;
     String lastName;
 
 
-    @OneToOne
+    @ManyToOne // Mange kandidater kan have et parti!
     @JoinColumn(name = "party_id", referencedColumnName = "id")
 
     private Party party;

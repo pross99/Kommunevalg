@@ -7,7 +7,7 @@ import com.example.kommunevalg.repository.CandidateRepository;
 
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@RestController  // Spring anotation - markerer klassen som en request handler
 @RequestMapping("api/candidates")
 public class CommuneResource {
 
